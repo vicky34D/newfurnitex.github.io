@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySite - Everything to Sell Anything</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Lucide icons from CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Configure Tailwind to use Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Internal CSS for custom styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Style for the gradient text */
+        .gradient-text {
+            background: linear-gradient(to right, #fde047, #f97316, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-800/50 bg-black/70 backdrop-blur-md">
+        <nav class="container mx-auto flex h-20 items-center justify-between px-6">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold">
+                furnitex
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden space-x-8 md:flex">
+                <a href="#" class="text-gray-300 hover:text-white">Products</a>
+                <a href="#" class="text-gray-300 hover:text-white">Templates</a>
+                <a href="#" class="text-gray-300 hover:text-white">Resources</a>
+                <a href="#" class="text-gray-300 hover:text-white">Contact</a>
+            </div>
+
+            <!-- CTA & Mobile -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden text-gray-300 hover:text-white md:block">Log In</a>
+                <a href="#" class="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
+                    Get Started
+                </a>
+                <button id="menu-btn" class="md:hidden">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden space-y-4 bg-black p-6 md:hidden">
+            <a href="#" class="block text-gray-300 hover:text-white">Products</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Templates</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Resources</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Contact</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Log In</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <section class="container mx-auto px-6 py-24 text-center md:py-32" style="background-image: url('img/landscape img/l1.jpg'); background-size: cover; background-position: center;">
+            <h1 class="text-5xl font-bold leading-tight md:text-8xl">
+            Everything <br> for <span class="gradient-text">modern living.</span>
+            </h1>
+            <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">
+            The all-in-one platform to build your brand, sell online, and market your business. No matter what you sell, MySite has you covered.
+            </p>
+            <div class="mt-10 flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
+            <a href="#" class="w-full rounded-full bg-white px-8 py-4 font-semibold text-black transition hover:bg-gray-200 sm:w-auto">
+                Get Started
+            </a>
+            <a href="#" class="w-full rounded-full border border-gray-700 px-8 py-4 font-semibold text-white transition hover:border-white sm:w-auto">
+                Learn More
+            </a>
+            </div>
+            <div class="mt-16">
+                <img src="img/landscape img/l2.jpg" 
+                     alt="Dashboard preview" 
+                     class="mx-auto w-full max-w-[1200px] h-[600px] rounded-lg shadow-2xl object-cover"
+                     onerror="this.src='img/1200x600/l6.jpg'">
+            </div>
+        </section>
+
+        <!-- Feature Grid Section -->
+        <section class="container mx-auto px-6 py-20">
+            <h2 class="mb-12 text-center text-4xl font-bold md:text-5xl">
+                Build your brand.
+            </h2>
+            <div class="grid gap-8 md:grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="rounded-lg bg-gray-900/50 p-8">
+                    <i data-lucide="layout-template" class="mb-4 h-8 w-8 text-indigo-400"></i>
+                    <h3 class="mb-2 text-2xl font-semibold">Award-Winning Templates</h3>
+                    <p class="text-gray-400">
+                        Start with any of our professionally designed templates to make your site look stunning on any device.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="rounded-lg bg-gray-900/50 p-8">
+                    <i data-lucide="palette" class="mb-4 h-8 w-8 text-pink-400"></i>
+                    <h3 class="mb-2 text-2xl font-semibold">Custom Fonts & Colors</h3>
+                    <p class="text-gray-400">
+                        Customize your site’s look and feel with full control over fonts, colors, and page configurations.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="rounded-lg bg-gray-900/50 p-8">
+                    <i data-lucide="image" class="mb-4 h-8 w-8 text-emerald-400"></i>
+                    <h3 class="mb-2 text-2xl font-semibold">Asset Management</h3>
+                    <p class="text-gray-400">
+                        Seamlessly manage your photos and videos with our integrated content delivery network (CDN).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Template Showcase Section -->
+        <section class="container mx-auto px-6 py-20 text-center">
+            <h2 class="mb-12 text-4xl font-bold md:text-5xl">
+                Templates that set you apart.
+            </h2>
+            <div class="grid gap-8 md:grid-cols-2">
+                <!-- Template 1 -->
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="img/landscape img/l1.jpg" 
+                         alt="Template Preview 1" 
+                         class="w-full transform transition-transform duration-500 group-hover:scale-105"
+                         onerror="this.src='https://placehold.co/800x600/222/FFF?text=Image+Not+Found'">
+                    <div class="absolute inset-0 bg-black/30"></div>
+                    <h4 class="absolute bottom-6 left-6 text-2xl font-semibold">Portfolio Template</h4>
+                </div>
+                <!-- Template 2 -->
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="img/landscape img/l6.jpg" 
+                         alt="Template Preview 2" 
+                         class="w-full transform transition-transform duration-500 group-hover:scale-105"
+                         onerror="this.src='https://placehold.co/800x600/333/FFF?text=Image+Not+Found'">
+                    <div class="absolute inset-0 bg-black/30"></div>
+                    <h4 class="absolute bottom-6 left-6 text-2xl font-semibold">E-Commerce Store</h4>
+                </div>
+            </div>
+            <a href="#" class="mt-12 inline-block rounded-full border border-gray-700 px-8 py-4 font-semibold text-white transition hover:border-white">
+                Browse All Templates
+            </a>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="py-20">
+            <div class="container mx-auto max-w-4xl px-6 text-center">
+                <blockquote class="text-3xl font-medium md:text-4xl">
+                    "MySite made it incredibly simple to get my business online. The tools are intuitive and the designs are beautiful."
+                </blockquote>
+                <cite class="mt-6 block text-lg font-semibold text-gray-300">
+                    Jane Doe, Founder of 'The Daily Bloom'
+                </cite>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="container mx-auto px-6 py-20">
+            <div class="rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-12 text-center md:p-20">
+                <h2 class="mb-4 text-4xl font-bold md:text-6xl">
+                    Start your free trial.
+                </h2>
+                <p class="mx-auto mb-8 max-w-xl text-lg text-purple-100">
+                    No credit card required. Start building your dream website today and see what MySite can do for you.
+                </p>
+                <a href="#" class="inline-block rounded-full bg-black px-10 py-4 font-semibold text-white transition hover:bg-gray-800">
+                    Get Started Free
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800">
+        <div class="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-5">
+            <!-- Logo & Social -->
+            <div class="md:col-span-2">
+                <a href="#" class="text-2xl font-bold">
+                    MySite
+                </a>
+                <p class="mt-4 text-gray-400">
+                    The all-in-one platform for your business.
+                </p>
+                <div class="mt-6 flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div>
+                <h5 class="font-semibold">Products</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Modular Kitchen</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Wardrobes</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Dining Tables</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">TV Units</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Community</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Experts</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Company</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800">
+            <div class="container mx-auto flex flex-col items-center justify-between px-6 py-8 text-center text-sm text-gray-500 md:flex-row">
+                <p>&copy; 2025 MySite, Inc. All rights reserved.</p>
+                <div class="mt-4 flex space-x-6 md:mt-0">
+                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for icons and mobile menu -->
+    <script>
+        // Render all Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
