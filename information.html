@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furnitex - Information</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Lucide icons from CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Configure Tailwind to use Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Internal CSS for custom styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+         /* Simple fade-in animation */
+         @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-800/50 bg-black/70 backdrop-blur-md">
+        <nav class="container mx-auto flex h-20 items-center justify-between px-6">
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-bold">
+                furnitex
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden space-x-8 md:flex">
+                <a href="products.html" class="text-gray-300 hover:text-white">Products</a>
+                <a href="catalog.html" class="text-gray-300 hover:text-white">Catalog</a>
+                <a href="information.html" class="text-white font-semibold">Information</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white">Contact</a>
+            </div>
+
+            <!-- CTA & Mobile -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden text-gray-300 hover:text-white md:block">Log In</a>
+                <a href="#" class="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
+                    Get Started
+                </a>
+                <button id="menu-btn" class="md:hidden">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden space-y-4 bg-black p-6 md:hidden">
+            <a href="products.html" class="block text-gray-300 hover:text-white">Products</a>
+            <a href="catalog.html" class="block text-gray-300 hover:text-white">Catalog</a>
+            <a href="information.html" class="block text-white font-semibold">Information</a>
+            <a href="contact.html" class="block text-gray-300 hover:text-white">Contact</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Log In</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-20 animate-fade-in">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">
+                ✨ "Behind the Build: Crafting a Premium Wardrobe"
+            </h1>
+            
+            <div class="prose prose-invert lg:prose-xl max-w-none space-y-6 text-gray-300">
+                <p class="text-lg md:text-xl leading-relaxed">
+                    Every perfect wardrobe begins with more than just design — it begins with precision, strength, and the right materials.
+                </p>
+                <p>
+                    We start with <strong>19mm Marine-Grade BWP Plywood</strong> — the heart of the structure. Built to resist moisture and time, this plywood forms the strong bones of the wardrobe, ensuring it stands tall and steady for years.
+                </p>
+                <p>
+                    Inside, we keep it clean and bright with <strong>0.8mm white liner laminates</strong>, giving a crisp, spacious look every time you open it. Outside, it’s all about style and personality — <strong>1mm textured or glossy laminates</strong> that bring the final touch of elegance. Whether it’s a soft matte oak or a high-gloss marble finish, the outer layer defines your space’s vibe.
+                </p>
+                <p>
+                    Every edge is sealed with <strong>2mm PVC banding</strong>, every hinge is soft-close, and every drawer glides smooth as silk — thanks to premium fittings from <strong>Hettich, Hafele, or Ebco</strong>.
+                </p>
+                <p>
+                    From precision-cut panels to the last polished handle, every detail is measured, aligned, and crafted to perfection.
+                </p>
+
+                <blockquote class="border-l-4 border-indigo-400 pl-6 italic text-gray-200">
+                    <strong>💡 Tip:</strong> Add LED strip lights behind the shutters for that gentle evening glow — it instantly elevates the luxury feel.
+                </blockquote>
+
+                <p class="text-xl md:text-2xl font-semibold text-center text-white mt-12">
+                    Because a wardrobe isn’t just storage — it’s a statement of craftsmanship, design, and daily comfort.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-20">
+        <div class="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-5">
+            <!-- Logo & Social -->
+            <div class="md:col-span-2">
+                <a href="index.html" class="text-2xl font-bold">
+                    furnitex
+                </a>
+                <p class="mt-4 text-gray-400">
+                    The all-in-one platform for your furniture needs.
+                </p>
+                <div class="mt-6 flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div>
+                <h5 class="font-semibold">Products</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Modular Kitchen</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Wardrobes</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Dining Tables</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">TV Units</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Community</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Experts</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Company</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                    <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800">
+            <div class="container mx-auto flex flex-col items-center justify-between px-6 py-8 text-center text-sm text-gray-500 md:flex-row">
+                <p>&copy; 2025 furnitex, Inc. All rights reserved.</p>
+                <div class="mt-4 flex space-x-6 md:mt-0">
+                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for icons and mobile menu -->
+    <script>
+        // Render all Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>

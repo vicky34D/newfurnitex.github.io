@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furnitex - Products</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Lucide icons from CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Configure Tailwind to use Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Internal CSS for custom styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Simple fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-800/50 bg-black/70 backdrop-blur-md">
+        <nav class="container mx-auto flex h-20 items-center justify-between px-6">
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-bold">
+                furnitex
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden space-x-8 md:flex">
+                <a href="products.html" class="text-white font-semibold">Products</a>
+                <a href="catalog.html" class="text-gray-300 hover:text-white">Catalog</a>
+                <a href="information.html" class="text-gray-300 hover:text-white">Information</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white">Contact</a>
+            </div>
+
+            <!-- CTA & Mobile -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden text-gray-300 hover:text-white md:block">Log In</a>
+                <a href="#" class="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
+                    Get Started
+                </a>
+                <button id="menu-btn" class="md:hidden">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden space-y-4 bg-black p-6 md:hidden">
+            <a href="products.html" class="block text-white font-semibold">Products</a>
+            <a href="catalog.html" class="block text-gray-300 hover:text-white">Catalog</a>
+            <a href="information.html" class="block text-gray-300 hover:text-white">Information</a>
+            <a href="contact.html" class="block text-gray-300 hover:text-white">Contact</a>
+            <a href="#" class="block text-gray-300 hover:text-white">Log In</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-20 animate-fade-in">
+        <h1 class="text-5xl font-bold text-center mb-16">Our Products</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Category Card: Living Room -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-pink-400">1. Living Room Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Sofas & Sectionals</li>
+                    <li>Armchairs / Accent Chairs</li>
+                    <li>Coffee Tables</li>
+                    <li>Side / End Tables</li>
+                    <li>TV Units / Entertainment Consoles</li>
+                    <li>Display Units / Bookshelves</li>
+                    <li>Recliners</li>
+                    <li>Poufs & Ottomans</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Bedroom -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-indigo-400">2. Bedroom Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Beds (King, Queen, Storage, etc.)</li>
+                    <li>Wardrobes (Sliding / Hinged / Walk-in)</li>
+                    <li>Dressers & Mirrors</li>
+                    <li>Bedside Tables</li>
+                    <li>Chest of Drawers</li>
+                    <li>Study Desks / Work Tables</li>
+                    <li>Mattresses</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Dining Room -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-emerald-400">3. Dining Room Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Dining Tables</li>
+                    <li>Dining Chairs / Benches</li>
+                    <li>Crockery Units / Sideboards / Buffets</li>
+                    <li>Bar Units & Stools</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Kitchen -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-yellow-400">4. Kitchen Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Modular Cabinets</li>
+                    <li>Countertops & Islands</li>
+                    <li>Tall Units / Pantry Units</li>
+                    <li>Overhead Cabinets</li>
+                    <li>Pull-out Racks & Organizers</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Office -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-cyan-400">5. Office & Study Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Work Desks</li>
+                    <li>Office Chairs</li>
+                    <li>Bookshelves</li>
+                    <li>File Cabinets</li>
+                    <li>Conference Tables</li>
+                    <li>Reception Desks</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Outdoor -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-orange-400">6. Outdoor Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Patio Tables & Chairs</li>
+                    <li>Swing Chairs / Hammocks</li>
+                    <li>Garden Benches</li>
+                    <li>Outdoor Sofas / Loungers</li>
+                    <li>Balcony Sets</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Kids -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-lime-400">7. Kids Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Kids Beds / Bunk Beds</li>
+                    <li>Study Tables</li>
+                    <li>Toy Storage Units</li>
+                    <li>Kids Chairs</li>
+                    <li>Wardrobes / Dressers</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Entryway -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-purple-400">8. Entryway & Hall Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Shoe Racks</li>
+                    <li>Console Tables</li>
+                    <li>Coat Stands / Hangers</li>
+                    <li>Key Holders / Mirrors</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: Storage -->
+            <div class="rounded-lg bg-gray-900/50 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-red-400">9. Storage Furniture</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Cabinets</li>
+                    <li>Shelving Units</li>
+                    <li>Sideboards</li>
+                    <li>Trunks & Chests</li>
+                    <li>Storage Benches</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: By Material -->
+            <div class="rounded-lg bg-gray-800 p-8 md:col-span-2">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-200">🪵 By Material / Build Type</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Solid Wood (Teak, Sheesham, Oak, etc.)</li>
+                    <li>Engineered Wood (MDF, HDF, Particle Board, Marine Ply)</li>
+                    <li>Metal / Iron Frame</li>
+                    <li>Rattan / Cane / Bamboo</li>
+                    <li>Glass & Acrylic</li>
+                    <li>Upholstered (Fabric / Leather / Faux Leather)</li>
+                </ul>
+            </div>
+
+            <!-- Category Card: By Style -->
+            <div class="rounded-lg bg-gray-800 p-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-200">🎨 By Style</h2>
+                <ul class="space-y-2 text-gray-300">
+                    <li>Modern / Contemporary</li>
+                    <li>Minimalist</li>
+                    <li>Scandinavian</li>
+                    <li>Industrial</li>
+                    <li>Traditional / Colonial / Vintage</li>
+                    <li>Bohemian / Rustic</li>
+                    <li>Mid-Century</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-20">
+        <div class="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-5">
+            <!-- Logo & Social -->
+            <div class="md:col-span-2">
+                <a href="index.html" class="text-2xl font-bold">
+                    furnitex
+                </a>
+                <p class="mt-4 text-gray-400">
+                    The all-in-one platform for your furniture needs.
+                </p>
+                <div class="mt-6 flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="h-5 w-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div>
+                <h5 class="font-semibold">Products</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Modular Kitchen</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Wardrobes</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">Dining Tables</a></li>
+                    <li><a href="products.html" class="text-gray-400 hover:text-white">TV Units</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Community</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Experts</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold">Company</h5>
+                <ul class="mt-4 space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                    <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800">
+            <div class="container mx-auto flex flex-col items-center justify-between px-6 py-8 text-center text-sm text-gray-500 md:flex-row">
+                <p>&copy; 2025 furnitex, Inc. All rights reserved.</p>
+                <div class="mt-4 flex space-x-6 md:mt-0">
+                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for icons and mobile menu -->
+    <script>
+        // Render all Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
