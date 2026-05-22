@@ -1,206 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furnitex - Catalog</title>
-    <!-- Load Tailwind CSS from CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Load Lucide icons from CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Configure Tailwind to use Inter font -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
-    
-    <!-- Internal CSS for custom styles -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-         /* Simple fade-in animation */
-         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catalog — Furnitex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ivory:#f1ece4;
+  --cream:#e9e2d6;
+  --paper:#faf7f1;
+  --ink:#0e0d0b;
+  --soft:#3a352c;
+  --muted:#8a8377;
+  --line:rgba(14,13,11,.12);
+  --line-dark:rgba(255,255,255,.10);
+  --accent:#c75a2a;
+  --f-serif:'Fraunces',Georgia,serif;
+  --f-sans:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,0,1);
+}
+html,body{background:var(--ivory);color:var(--ink);}
+body{font-family:var(--f-sans);font-size:16px;line-height:1.55;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:transparent;cursor:none;color:inherit}
+::selection{background:var(--ink);color:var(--ivory)}
+
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+.cur-dot{width:6px;height:6px;background:var(--ink);mix-blend-mode:difference}
+.cur-ring{width:38px;height:38px;border:1px solid rgba(14,13,11,.35);transition:width .35s var(--ease),height .35s var(--ease),border-color .35s,background .35s}
+.cur-grow .cur-ring{width:78px;height:78px;background:rgba(14,13,11,.06);border-color:transparent}
+body.dark .cur-ring{border-color:rgba(255,255,255,.4)}
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 36px;mix-blend-mode:difference;color:#fff;
+  transition:padding .4s var(--ease);
+}
+.nav.scrolled{padding:14px 36px}
+.nav .brand{font-family:var(--f-serif);font-size:1.4rem;letter-spacing:-.02em;font-weight:500}
+.nav .brand em{font-style:italic;font-weight:400;opacity:.85}
+.nav-links{display:flex;gap:30px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:currentColor;transition:width .45s var(--ease)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{border:1px solid rgba(255,255,255,.7);padding:9px 18px;border-radius:999px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:background .4s var(--ease),color .4s}
+.nav-cta:hover{background:#fff;color:var(--ink)}
+
+.container{width:min(1320px,92vw);margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:500}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
+
+/* HEADER */
+.head-section{padding:170px 0 70px;border-bottom:1px solid var(--line)}
+.head-section .meta{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);margin-bottom:50px}
+.head-section h1{
+  font-family:var(--f-serif);font-weight:300;
+  font-size:clamp(3rem,9vw,8rem);letter-spacing:-.045em;line-height:.95;
+  max-width:980px;
+}
+.head-section h1 em{font-style:italic;color:var(--soft)}
+.head-section p{margin-top:34px;color:var(--soft);max-width:560px;font-size:1.05rem;line-height:1.7}
+.head-section .index{
+  margin-top:60px;display:flex;flex-wrap:wrap;gap:36px;
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.head-section .index a{
+  display:inline-flex;align-items:center;gap:10px;color:var(--soft);
+  padding:6px 0;border-bottom:1px solid transparent;transition:border-color .4s,color .4s;
+}
+.head-section .index a:hover{color:var(--ink);border-color:var(--ink)}
+.head-section .index span{color:var(--muted);font-family:var(--f-serif);font-style:italic;font-size:.95rem;text-transform:none;letter-spacing:0}
+
+/* CATEGORY */
+.cat{position:relative;border-bottom:1px solid var(--line);padding:90px 0;overflow:hidden}
+.cat.alt{background:var(--paper)}
+.cat.dark{background:var(--ink);color:var(--ivory);border-bottom-color:var(--line-dark)}
+.cat.dark .eyebrow{color:rgba(255,255,255,.55)}
+.cat.dark .stat strong{color:#fff}
+.cat.dark .stat span{color:rgba(255,255,255,.55)}
+.cat.dark .price{color:rgba(255,255,255,.7)}
+.cat.dark .btn-pill{background:#fff;color:var(--ink)}
+.cat.dark .btn-pill:hover{background:var(--accent);color:#fff}
+.cat.dark .feat li::before{background:rgba(255,255,255,.4)}
+.cat.dark .feat li{color:rgba(255,255,255,.8)}
+
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.cat.reverse .cat-grid{direction:rtl}
+.cat.reverse .cat-grid > *{direction:ltr}
+
+.cat-media{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 100px -40px rgba(30,20,10,.45)}
+.cat-media img{transition:transform 1.8s var(--ease)}
+.cat:hover .cat-media img{transform:scale(1.05)}
+.cat-media .tag{position:absolute;top:18px;left:18px;background:rgba(255,255,255,.92);color:var(--ink);padding:7px 12px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border-radius:2px}
+.cat-media .num{position:absolute;top:18px;right:22px;font-family:var(--f-serif);font-style:italic;font-size:1.4rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+
+.cat-copy h2{font-family:var(--f-serif);font-weight:300;font-size:clamp(2.2rem,5vw,4.4rem);letter-spacing:-.035em;line-height:1.02;margin-top:16px}
+.cat-copy h2 em{font-style:italic;color:var(--soft)}
+.cat.dark h2 em{color:rgba(255,255,255,.55)}
+.cat-copy p{margin-top:22px;color:var(--soft);font-size:1.02rem;line-height:1.7;max-width:520px}
+.cat.dark .cat-copy p{color:rgba(255,255,255,.7)}
+
+.feat{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:10px}
+.feat li{position:relative;padding-left:22px;font-size:.95rem;color:var(--soft)}
+.feat li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:1px;background:var(--soft)}
+
+.stats{margin-top:34px;display:flex;gap:48px;flex-wrap:wrap}
+.stat span{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.stat strong{font-family:var(--f-serif);font-weight:400;font-size:1.55rem;color:var(--ink);letter-spacing:-.01em}
+
+.price{margin-top:30px;font-family:var(--f-serif);font-size:1.4rem;color:var(--soft);font-style:italic}
+.price b{font-style:normal;font-weight:500;color:var(--ink)}
+.cat.dark .price b{color:#fff}
+
+.cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-pill{display:inline-flex;align-items:center;gap:12px;padding:13px 22px;border-radius:999px;background:var(--ink);color:var(--ivory);font-size:.82rem;letter-spacing:.06em;transition:transform .5s var(--ease),background .35s}
+.btn-pill:hover{transform:translateY(-2px);background:var(--accent)}
+.btn-pill .arrow{width:18px;height:1px;background:currentColor;position:relative;display:inline-block}
+.btn-pill .arrow::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg)}
+.btn-ghost{font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);border-bottom:1px solid var(--line);padding-bottom:4px}
+.cat.dark .btn-ghost{color:rgba(255,255,255,.7);border-bottom-color:rgba(255,255,255,.3)}
+
+/* CTA STRIP */
+.cta-strip{padding:140px 0;text-align:center;background:var(--ivory)}
+.cta-strip h2{font-family:var(--f-serif);font-weight:300;font-size:clamp(2.4rem,6vw,5rem);line-height:1;letter-spacing:-.035em}
+.cta-strip h2 em{font-style:italic;color:var(--soft)}
+.cta-strip p{margin:24px auto 30px;max-width:560px;color:var(--soft)}
+
+/* FOOTER */
+.foot{background:var(--ink);color:var(--ivory);padding:90px 0 0;overflow:hidden}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:70px}
+.foot h4{font-family:var(--f-sans);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:18px}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:.95rem;color:rgba(255,255,255,.85)}
+.foot ul a:hover{color:#fff}
+.subscribe{display:flex;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:10px;gap:10px;max-width:420px}
+.subscribe input{flex:1;background:transparent;border:0;color:#fff;font-size:.95rem;outline:none}
+.subscribe input::placeholder{color:rgba(255,255,255,.5)}
+.subscribe button{color:rgba(255,255,255,.85);font-size:1.2rem}
+.subscribe button:hover{color:var(--accent)}
+.foot-address{color:rgba(255,255,255,.7);margin-top:24px;line-height:1.6;font-size:.92rem}
+.foot-mega{font-family:var(--f-serif);font-weight:300;font-size:clamp(6rem,22vw,22rem);letter-spacing:-.05em;line-height:.85;text-align:center;color:#fff;padding-bottom:40px}
+.foot-mega em{font-style:italic;color:rgba(255,255,255,.55)}
+.foot-bottom{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.14);padding:24px 0;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+@media (max-width:980px){
+  .nav-links{display:none}
+  .cat-grid{grid-template-columns:1fr;gap:40px}
+  .cat.reverse .cat-grid{direction:ltr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  body{cursor:auto}
+  .cur-dot,.cur-ring{display:none}
+}
+</style>
 </head>
-<body class="bg-black text-white">
+<body>
 
-    <!-- Header / Navigation -->
-    <header class="sticky top-0 z-50 w-full border-b border-gray-800/50 bg-black/70 backdrop-blur-md">
-        <nav class="container mx-auto flex h-20 items-center justify-between px-6">
-            <!-- Logo -->
-            <a href="index.html" class="text-2xl font-bold">
-                furnitex
-            </a>
+<div class="cur-ring"></div>
+<div class="cur-dot"></div>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden space-x-8 md:flex">
-                <a href="products.html" class="text-gray-300 hover:text-white">Products</a>
-                <a href="catalog.html" class="text-white font-semibold">Catalog</a>
-                <a href="information.html" class="text-gray-300 hover:text-white">Information</a>
-                <a href="contact.html" class="text-gray-300 hover:text-white">Contact</a>
-            </div>
+<header class="nav" id="nav">
+  <a href="index.html" class="brand">furnitex<em>.</em></a>
+  <nav class="nav-links">
+    <a href="catalog.html" class="active">Collections</a>
+    <a href="index.html#story">Atelier</a>
+    <a href="information.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="contact.html" class="nav-cta">Book a Visit</a>
+</header>
 
-            <!-- CTA & Mobile -->
-            <div class="flex items-center space-x-4">
-                <a href="#" class="hidden text-gray-300 hover:text-white md:block">Log In</a>
-                <a href="#" class="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
-                    Get Started
-                </a>
-                <button id="menu-btn" class="md:hidden">
-                    <i data-lucide="menu" class="h-6 w-6"></i>
-                </button>
-            </div>
-        </nav>
+<!-- HEADER -->
+<section class="head-section">
+  <div class="container">
+    <div class="meta">
+      <span>Catalog · Vol. 04</span>
+      <span>Spring/Summer 2026 — five collections</span>
+    </div>
+    <span class="eyebrow">The Furnitex Catalog</span>
+    <h1 style="margin-top:24px">Five rooms.<br/>One <em>quiet</em><br/>philosophy.</h1>
+    <p>Every piece is drawn by hand, prototyped in our Calcutta atelier, and built by joiners who have spent decades inside a single craft. Browse the five working collections — or visit the showroom to sit, touch, and decide.</p>
+    <div class="index">
+      <a href="#wardrobe"><span>01</span> Wardrobe</a>
+      <a href="#kitchen"><span>02</span> Kitchen</a>
+      <a href="#tv-unit"><span>03</span> TV Unit</a>
+      <a href="#dining"><span>04</span> Dining Table</a>
+      <a href="#sofa"><span>05</span> Sofa</a>
+    </div>
+  </div>
+</section>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden space-y-4 bg-black p-6 md:hidden">
-            <a href="products.html" class="block text-gray-300 hover:text-white">Products</a>
-            <a href="catalog.html" class="block text-white font-semibold">Catalog</a>
-            <a href="information.html" class="block text-gray-300 hover:text-white">Information</a>
-            <a href="contact.html" class="block text-gray-300 hover:text-white">Contact</a>
-            <a href="#" class="block text-gray-300 hover:text-white">Log In</a>
+<!-- 01 WARDROBE -->
+<section class="cat" id="wardrobe">
+  <div class="container">
+    <div class="cat-grid">
+      <div class="cat-media">
+        <span class="tag">In Catalog</span>
+        <span class="num">01</span>
+        <img src="img/catalog/wardrobe.png" alt="Furnitex 4-Door Walnut Wardrobe" />
+      </div>
+      <div class="cat-copy">
+        <span class="eyebrow">Bedroom · The Wardrobe</span>
+        <h2>The Walnut <em>Wardrobe</em>, four doors.</h2>
+        <p>A floor-to-ceiling wardrobe in solid Indian walnut with hand-rubbed oil finish, soft-close hinges, and full-width interior drawers. Built to disappear into the wall and outlive the room.</p>
+        <ul class="feat">
+          <li>Solid Indian walnut · 22mm carcass</li>
+          <li>Brass slim-line vertical pulls</li>
+          <li>Soft-close hinges, full-extension drawers</li>
+          <li>Built-in jewelry tray + tie rack</li>
+          <li>Custom widths: 1800 / 2100 / 2400 mm</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><span>Lead time</span><strong>10–12 wks</strong></div>
+          <div class="stat"><span>Warranty</span><strong>10 years</strong></div>
+          <div class="stat"><span>Finish</span><strong>Oil / Matte</strong></div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-20 animate-fade-in">
-        <h1 class="text-5xl font-bold text-center mb-16">Our Catalogues</h1>
-        <p class="text-center text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
-            Browse our curated catalogues. Click on any image to download the PDF.
-            (Note: These are placeholder links).
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <!-- Catalog 1 -->
-            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg" download="furnitex_living_room_catalog.pdf">
-                <img src="img/squre img/s1.jpg" 
-                     alt="Living Room Catalog"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
-                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h2 class="text-3xl font-bold mb-2">Living Room</h2>
-                    <p class="text-lg font-medium bg-black/50 rounded-full px-4 py-1">Download PDF</p>
-                </div>
-            </a>
-
-            <!-- Catalog 2 -->
-            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg" download="furnitex_bedroom_catalog.pdf">
-                <img src="img/squre img/s2.jpg" 
-                     alt="Bedroom Catalog"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
-                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h2 class="text-3xl font-bold mb-2">Bedroom</h2>
-                    <p class="text-lg font-medium bg-black/50 rounded-full px-4 py-1">Download PDF</p>
-                </div>
-            </a>
-
-            <!-- Catalog 3 -->
-            <a href="#" class="group relative block overflow-hidden rounded-lg shadow-lg" download="furnitex_modular_catalog.pdf">
-                <img src="img/squre img/s3.jpg" 
-                     alt="Modular Catalog"
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
-                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                    <h2 class="text-3xl font-bold mb-2">Modular Solutions</h2>
-                    <p class="text-lg font-medium bg-black/50 rounded-full px-4 py-1">Download PDF</p>
-                </div>
-            </a>
-
+        <p class="price">from <b>₹ 1,84,000</b></p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn-pill" data-grow>Request quotation <span class="arrow"></span></a>
+          <a href="contact.html" class="btn-ghost" data-grow>Book showroom visit</a>
         </div>
-    </main>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 mt-20">
-        <div class="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-5">
-            <!-- Logo & Social -->
-            <div class="md:col-span-2">
-                <a href="index.html" class="text-2xl font-bold">
-                    furnitex
-                </a>
-                <p class="mt-4 text-gray-400">
-                    The all-in-one platform for your furniture needs.
-                </p>
-                <div class="mt-6 flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                </div>
-            </div>
-
-            <!-- Footer Links -->
-            <div>
-                <h5 class="font-semibold">Products</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Modular Kitchen</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Wardrobes</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Dining Tables</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">TV Units</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-semibold">Community</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Experts</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-semibold">Company</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
-                    <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
-                </ul>
-            </div>
+<!-- 02 KITCHEN -->
+<section class="cat alt reverse" id="kitchen">
+  <div class="container">
+    <div class="cat-grid">
+      <div class="cat-media">
+        <span class="tag">Modular</span>
+        <span class="num">02</span>
+        <img src="img/catalog/kitchen.png" alt="Furnitex Modular Kitchen Cabinet Set" />
+      </div>
+      <div class="cat-copy">
+        <span class="eyebrow">Kitchen · Modular System</span>
+        <h2>The <em>Modular</em> Kitchen.</h2>
+        <p>A modular cabinet system built around the way a real cook moves. Matte oak fronts, brushed brass pulls, marble or quartz tops. Engineered for ten thousand opens and closes a year.</p>
+        <ul class="feat">
+          <li>Matte oak veneer · solid plywood core</li>
+          <li>Brushed brass or blackened steel pulls</li>
+          <li>Blum tandem-box drawers · soft close</li>
+          <li>Marble, quartz or solid surface tops</li>
+          <li>Layouts: L, U, Galley, Island</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><span>Lead time</span><strong>8–14 wks</strong></div>
+          <div class="stat"><span>Warranty</span><strong>10 years</strong></div>
+          <div class="stat"><span>Modules</span><strong>34 base</strong></div>
         </div>
-        <div class="border-t border-gray-800">
-            <div class="container mx-auto flex flex-col items-center justify-between px-6 py-8 text-center text-sm text-gray-500 md:flex-row">
-                <p>&copy; 2025 furnitex, Inc. All rights reserved.</p>
-                <div class="mt-4 flex space-x-6 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
-                </div>
-            </div>
+        <p class="price">from <b>₹ 4,20,000</b></p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn-pill" data-grow>Plan your kitchen <span class="arrow"></span></a>
+          <a href="contact.html" class="btn-ghost" data-grow>Download spec sheet</a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- JavaScript for icons and mobile menu -->
-    <script>
-        // Render all Lucide icons
-        lucide.createIcons();
+<!-- 03 TV UNIT -->
+<section class="cat dark" id="tv-unit">
+  <div class="container">
+    <div class="cat-grid">
+      <div class="cat-media">
+        <span class="tag">Wall + Floor</span>
+        <span class="num">03</span>
+        <img src="img/catalog/tv-unit.png" alt="Furnitex Walnut TV Unit and Entertainment Console" />
+      </div>
+      <div class="cat-copy">
+        <span class="eyebrow">Living · Media Console</span>
+        <h2>The <em>Low</em> TV unit.</h2>
+        <p>A low-profile media console designed to recede. Solid walnut frame, push-to-open drawers, floating wall shelves, and a hidden cable trunking channel that keeps the wall clean.</p>
+        <ul class="feat">
+          <li>Solid walnut frame · veneer drawer fronts</li>
+          <li>Floating wall + floor configurations</li>
+          <li>Hidden cable management throughout</li>
+          <li>Ventilated AV compartment</li>
+          <li>Lengths: 1800 / 2200 / 2600 mm</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><span>Lead time</span><strong>6–8 wks</strong></div>
+          <div class="stat"><span>Warranty</span><strong>10 years</strong></div>
+          <div class="stat"><span>Variants</span><strong>3 lengths</strong></div>
+        </div>
+        <p class="price">from <b>₹ 96,000</b></p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn-pill" data-grow>Configure unit <span class="arrow"></span></a>
+          <a href="contact.html" class="btn-ghost" data-grow>See in showroom</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+<!-- 04 DINING -->
+<section class="cat reverse" id="dining">
+  <div class="container">
+    <div class="cat-grid">
+      <div class="cat-media">
+        <span class="tag">Solid Wood</span>
+        <span class="num">04</span>
+        <img src="img/catalog/dining.png" alt="Furnitex Solid Walnut Dining Table" />
+      </div>
+      <div class="cat-copy">
+        <span class="eyebrow">Dining · The Long Table</span>
+        <h2>The <em>long</em> dining table.</h2>
+        <p>A single piece of live-edge walnut on a sculpted twin-pedestal base. Seats six comfortably, eight in spirit. Finished in our atelier with a hand-rubbed oil that ages slowly and well.</p>
+        <ul class="feat">
+          <li>Live-edge solid walnut top · 50mm thick</li>
+          <li>Sculpted twin-pedestal base</li>
+          <li>Hand-rubbed oil finish, food-safe</li>
+          <li>Six matching sculpted chairs included</li>
+          <li>Lengths: 2200 / 2600 / 3000 mm</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><span>Lead time</span><strong>12–16 wks</strong></div>
+          <div class="stat"><span>Warranty</span><strong>15 years</strong></div>
+          <div class="stat"><span>Seats</span><strong>6–10</strong></div>
+        </div>
+        <p class="price">from <b>₹ 2,40,000</b></p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn-pill" data-grow>Request quotation <span class="arrow"></span></a>
+          <a href="contact.html" class="btn-ghost" data-grow>Book showroom visit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+<!-- 05 SOFA -->
+<section class="cat alt" id="sofa">
+  <div class="container">
+    <div class="cat-grid">
+      <div class="cat-media">
+        <span class="tag">Modular</span>
+        <span class="num">05</span>
+        <img src="img/catalog/sofa.png" alt="Furnitex L-Shaped Linen Sofa" />
+      </div>
+      <div class="cat-copy">
+        <span class="eyebrow">Living · The L-Shaped Sofa</span>
+        <h2>The <em>L-shaped</em> sofa.</h2>
+        <p>A modular sectional in Belgian linen with kiln-dried hardwood frame, sinuous spring base and high-resilience foam-and-down seat. Configures left or right, with or without chaise.</p>
+        <ul class="feat">
+          <li>Belgian linen · pre-washed, fade-resistant</li>
+          <li>Kiln-dried hardwood frame · 10-yr structural</li>
+          <li>Sinuous spring base · feather-wrapped foam</li>
+          <li>Removable + machine-washable covers</li>
+          <li>Lengths: 2400 / 2800 / 3200 mm</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><span>Lead time</span><strong>10–12 wks</strong></div>
+          <div class="stat"><span>Warranty</span><strong>10 years</strong></div>
+          <div class="stat"><span>Fabrics</span><strong>22 swatches</strong></div>
+        </div>
+        <p class="price">from <b>₹ 1,68,000</b></p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn-pill" data-grow>Order swatches <span class="arrow"></span></a>
+          <a href="contact.html" class="btn-ghost" data-grow>See in showroom</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container">
+    <span class="eyebrow">Visit the atelier</span>
+    <h2 style="margin-top:18px">Sit on it. <em>Touch</em> it.<br/>Then decide.</h2>
+    <p>Every Furnitex piece in the catalog is on the showroom floor in Calcutta. Bring your floor plan, bring your taste — leave with a plan.</p>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+      <a href="contact.html" class="btn-pill" data-grow>Book a private viewing <span class="arrow"></span></a>
+      <a href="information.html" class="btn-ghost" data-grow>Read the Journal</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="container foot-grid">
+    <div>
+      <h4>Subscribe to our newsletter</h4>
+      <form class="subscribe" onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('input').placeholder='Thank you ·'">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit" data-grow>→</button>
+      </form>
+      <p class="foot-address">
+        Head atelier · 5/B Park Street, 4th Floor<br/>
+        Kolkata, WB 700016 · India<br/>
+        hello@furnitex.in · +91 33 0000 0000
+      </p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="catalog.html#wardrobe">Wardrobe</a></li>
+        <li><a href="catalog.html#kitchen">Kitchen</a></li>
+        <li><a href="catalog.html#sofa">Sofa</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="information.html">Atelier</a></li>
+        <li><a href="contact.html">Trade Program</a></li>
+        <li><a href="contact.html">Press</a></li>
+        <li><a href="contact.html">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-mega">furnit<em>e</em>x</div>
+
+  <div class="container">
+    <div class="foot-bottom">
+      <span>© 2026 Furnitex Atelier Pvt. Ltd.</span>
+      <span>Crafted in Calcutta · Lived in everywhere</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const dot=document.querySelector('.cur-dot'), ring=document.querySelector('.cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
+(function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a, button, [data-grow], .cat-media').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cur-grow'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cur-grow'));
+});
+
+const lenis = new Lenis({duration:1.25, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+
+ScrollTrigger.create({start:60,end:99999,toggleClass:{targets:'#nav',className:'scrolled'}});
+
+gsap.from('.head-section h1',{y:60,opacity:0,duration:1.2,ease:'power4.out'});
+gsap.from('.head-section p',{y:30,opacity:0,duration:1,delay:.3,ease:'power3.out'});
+gsap.from('.head-section .index a',{y:20,opacity:0,duration:.7,delay:.5,stagger:.07,ease:'power3.out'});
+
+gsap.utils.toArray('.cat').forEach(cat=>{
+  gsap.from(cat.querySelector('.cat-media'),{y:60,opacity:0,duration:1.1,ease:'power3.out',
+    scrollTrigger:{trigger:cat,start:'top 80%'}});
+  gsap.from(cat.querySelectorAll('.cat-copy > *'),{y:30,opacity:0,duration:.8,stagger:.08,ease:'power3.out',
+    scrollTrigger:{trigger:cat,start:'top 75%'}});
+});
+
+gsap.utils.toArray('.cat.dark').forEach(c=>{
+  ScrollTrigger.create({trigger:c,start:'top 60%',end:'bottom 40%',
+    onEnter:()=>document.body.classList.add('dark'),
+    onLeave:()=>document.body.classList.remove('dark'),
+    onEnterBack:()=>document.body.classList.add('dark'),
+    onLeaveBack:()=>document.body.classList.remove('dark')});
+});
+
+gsap.utils.toArray('.cat-media img').forEach(img=>{
+  gsap.to(img,{yPercent:-8,ease:'none',scrollTrigger:{trigger:img.closest('.cat'),start:'top bottom',end:'bottom top',scrub:true}});
+});
+
+gsap.from('.cta-strip h2',{y:40,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.cta-strip',start:'top 80%'}});
+gsap.from('.foot-mega',{y:120,opacity:0,duration:1.4,ease:'power4.out',scrollTrigger:{trigger:'.foot-mega',start:'top 90%'}});
+gsap.from('.foot-grid > div',{y:40,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.foot-grid',start:'top 85%'}});
+</script>
 </body>
 </html>
