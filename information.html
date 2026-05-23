@@ -1,192 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furnitex - Information</title>
-    <!-- Load Tailwind CSS from CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Load Lucide icons from CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Configure Tailwind to use Inter font -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
-    
-    <!-- Internal CSS for custom styles -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-         /* Simple fade-in animation */
-         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Behind the Build — Furnitex Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ivory:#f1ece4;
+  --cream:#e9e2d6;
+  --paper:#faf7f1;
+  --ink:#0e0d0b;
+  --soft:#3a352c;
+  --muted:#8a8377;
+  --line:rgba(14,13,11,.12);
+  --line-dark:rgba(255,255,255,.10);
+  --accent:#c75a2a;
+  --f-serif:'Fraunces',Georgia,serif;
+  --f-sans:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,0,1);
+}
+html,body{background:var(--ivory);color:var(--ink);}
+body{font-family:var(--f-sans);font-size:16px;line-height:1.55;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;}
+img,video{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:transparent;cursor:none;color:inherit}
+::selection{background:var(--ink);color:var(--ivory)}
+
+/* CURSOR */
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+.cur-dot{width:6px;height:6px;background:#fff;mix-blend-mode:difference}
+.cur-ring{width:38px;height:38px;border:1px solid rgba(14,13,11,.35);transition:width .35s var(--ease),height .35s var(--ease),border-color .35s,background .35s}
+.cur-grow .cur-ring{width:78px;height:78px;background:rgba(14,13,11,.06);border-color:transparent}
+body.dark .cur-ring{border-color:rgba(255,255,255,.4)}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 36px;mix-blend-mode:difference;color:#fff;
+  transition:padding .4s var(--ease);
+}
+.nav.scrolled{padding:14px 36px}
+.nav .brand{font-family:var(--f-serif);font-size:1.4rem;letter-spacing:-.02em;font-weight:500}
+.nav .brand em{font-style:italic;font-weight:400;opacity:.85}
+.nav-links{display:flex;gap:30px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:currentColor;transition:width .45s var(--ease)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{border:1px solid rgba(255,255,255,.7);padding:9px 18px;border-radius:999px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:background .4s var(--ease),color .4s}
+.nav-cta:hover{background:#fff;color:var(--ink)}
+
+.container{width:min(1320px,92vw);margin:0 auto}
+.container-thin{width:min(780px,92vw);margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:500}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
+
+/* HEADER */
+.head-section{padding:170px 0 60px;border-bottom:1px solid var(--line)}
+.head-section .meta{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);margin-bottom:40px}
+.head-section h1{
+  font-family:var(--f-serif);font-weight:300;
+  font-size:clamp(2.5rem,8vw,6.5rem);letter-spacing:-.04em;line-height:.98;
+  max-width:980px;
+}
+.head-section h1 em{font-style:italic;color:var(--soft)}
+
+/* ARTICLE SECTION */
+.article-section{padding:80px 0 120px;background:var(--ivory)}
+.article-body{display:flex;flex-direction:column;gap:36px;font-size:1.15rem;line-height:1.75;color:var(--soft)}
+.article-body p strong{color:var(--ink);font-weight:600}
+.article-body h2{font-family:var(--f-serif);font-weight:300;font-size:2.2rem;letter-spacing:-.02em;color:var(--ink);margin-top:30px;line-height:1.2}
+.article-body blockquote{
+  border-left:3px solid var(--accent);padding:10px 0 10px 30px;
+  font-family:var(--f-serif);font-style:italic;font-size:1.4rem;color:var(--ink);
+  margin:20px 0;line-height:1.5;
+}
+.article-body blockquote strong{font-style:normal;font-family:var(--f-sans);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:8px;color:var(--accent)}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:30px 0}
+.detail-card{background:var(--paper);padding:36px;border-radius:4px;border:1px solid rgba(14,13,11,.05)}
+.detail-card h3{font-family:var(--f-serif);font-size:1.4rem;color:var(--ink);margin-bottom:12px;font-weight:400}
+.detail-card p{font-size:.98rem;line-height:1.6}
+
+/* FOOTER */
+.foot{background:var(--ink);color:var(--ivory);padding:90px 0 0;overflow:hidden}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:70px}
+.foot h4{font-family:var(--f-sans);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:18px}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:.95rem;color:rgba(255,255,255,.85)}
+.foot ul a:hover{color:#fff}
+.subscribe{display:flex;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:10px;gap:10px;max-width:420px}
+.subscribe input{flex:1;background:transparent;border:0;color:#fff;font-size:.95rem;outline:none}
+.subscribe input::placeholder{color:rgba(255,255,255,.5)}
+.subscribe button{color:rgba(255,255,255,.85);font-size:1.2rem}
+.subscribe button:hover{color:var(--accent)}
+.foot-address{color:rgba(255,255,255,.7);margin-top:24px;line-height:1.6;font-size:.92rem}
+.foot-mega{font-family:var(--f-serif);font-weight:300;font-size:clamp(6rem,22vw,22rem);letter-spacing:-.05em;line-height:.85;text-align:center;color:#fff;padding-bottom:40px}
+.foot-mega em{font-style:italic;color:rgba(255,255,255,.55)}
+.foot-bottom{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.14);padding:24px 0;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+@media (max-width:768px){
+  .nav-links{display:none}
+  .detail-grid{grid-template-columns:1fr;gap:20px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  body{cursor:auto}
+  .cur-dot,.cur-ring{display:none}
+}
+</style>
 </head>
-<body class="bg-black text-white">
+<body>
 
-    <!-- Header / Navigation -->
-    <header class="sticky top-0 z-50 w-full border-b border-gray-800/50 bg-black/70 backdrop-blur-md">
-        <nav class="container mx-auto flex h-20 items-center justify-between px-6">
-            <!-- Logo -->
-            <a href="index.html" class="text-2xl font-bold">
-                furnitex
-            </a>
+<div class="cur-ring"></div>
+<div class="cur-dot"></div>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden space-x-8 md:flex">
-                <a href="products.html" class="text-gray-300 hover:text-white">Products</a>
-                <a href="catalog.html" class="text-gray-300 hover:text-white">Catalog</a>
-                <a href="information.html" class="text-white font-semibold">Information</a>
-                <a href="contact.html" class="text-gray-300 hover:text-white">Contact</a>
-            </div>
+<header class="nav" id="nav">
+  <a href="index.html" class="brand">furnitex<em>.</em></a>
+  <nav class="nav-links">
+    <a href="catalog.html">Collections</a>
+    <a href="index.html#story">Atelier</a>
+    <a href="catalog.html">Catalog</a>
+    <a href="information.html" class="active">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="contact.html" class="nav-cta">Book a Visit</a>
+</header>
 
-            <!-- CTA & Mobile -->
-            <div class="flex items-center space-x-4">
-                <a href="#" class="hidden text-gray-300 hover:text-white md:block">Log In</a>
-                <a href="#" class="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
-                    Get Started
-                </a>
-                <button id="menu-btn" class="md:hidden">
-                    <i data-lucide="menu" class="h-6 w-6"></i>
-                </button>
-            </div>
-        </nav>
+<section class="head-section">
+  <div class="container-thin">
+    <div class="meta">
+      <span>Journal · Atelier Notes</span>
+      <span>May 2026</span>
+    </div>
+    <span class="eyebrow">Behind the Build</span>
+    <h1 style="margin-top:24px">Crafting a <em>premium</em> wardrobe: a working guide.</h1>
+  </div>
+</section>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden space-y-4 bg-black p-6 md:hidden">
-            <a href="products.html" class="block text-gray-300 hover:text-white">Products</a>
-            <a href="catalog.html" class="block text-gray-300 hover:text-white">Catalog</a>
-            <a href="information.html" class="block text-white font-semibold">Information</a>
-            <a href="contact.html" class="block text-gray-300 hover:text-white">Contact</a>
-            <a href="#" class="block text-gray-300 hover:text-white">Log In</a>
+<section class="article-section">
+  <div class="container-thin">
+    <div class="article-body">
+      <p class="intro">Every perfect wardrobe begins with more than just design — it begins with precision, strength, and the right materials. This is an open record of how we compose a signature Furnitex wardrobe.</p>
+      
+      <h2>1. The Foundation</h2>
+      <p>We start with <strong>19mm Marine-Grade BWP Plywood</strong> — the heart of the structure. Built to resist moisture and time, this plywood forms the strong bones of the wardrobe, ensuring it stands tall and steady for decades.</p>
+
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h3>Interior Liners</h3>
+          <p>Inside, we keep it clean and bright using <strong>0.8mm white liner laminates</strong>, giving a crisp, spacious, and easy-to-clean look every time you open the doors.</p>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-20 animate-fade-in">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">
-                ✨ "Behind the Build: Crafting a Premium Wardrobe"
-            </h1>
-            
-            <div class="prose prose-invert lg:prose-xl max-w-none space-y-6 text-gray-300">
-                <p class="text-lg md:text-xl leading-relaxed">
-                    Every perfect wardrobe begins with more than just design — it begins with precision, strength, and the right materials.
-                </p>
-                <p>
-                    We start with <strong>19mm Marine-Grade BWP Plywood</strong> — the heart of the structure. Built to resist moisture and time, this plywood forms the strong bones of the wardrobe, ensuring it stands tall and steady for years.
-                </p>
-                <p>
-                    Inside, we keep it clean and bright with <strong>0.8mm white liner laminates</strong>, giving a crisp, spacious look every time you open it. Outside, it’s all about style and personality — <strong>1mm textured or glossy laminates</strong> that bring the final touch of elegance. Whether it’s a soft matte oak or a high-gloss marble finish, the outer layer defines your space’s vibe.
-                </p>
-                <p>
-                    Every edge is sealed with <strong>2mm PVC banding</strong>, every hinge is soft-close, and every drawer glides smooth as silk — thanks to premium fittings from <strong>Hettich, Hafele, or Ebco</strong>.
-                </p>
-                <p>
-                    From precision-cut panels to the last polished handle, every detail is measured, aligned, and crafted to perfection.
-                </p>
-
-                <blockquote class="border-l-4 border-indigo-400 pl-6 italic text-gray-200">
-                    <strong>💡 Tip:</strong> Add LED strip lights behind the shutters for that gentle evening glow — it instantly elevates the luxury feel.
-                </blockquote>
-
-                <p class="text-xl md:text-2xl font-semibold text-center text-white mt-12">
-                    Because a wardrobe isn’t just storage — it’s a statement of craftsmanship, design, and daily comfort.
-                </p>
-            </div>
+        <div class="detail-card">
+          <h3>Exterior Face</h3>
+          <p>Outside, it’s all about texture and weight. We apply <strong>1mm textured or glossy laminates</strong>, matte walnut oil finishes, or hand-finished veneers that bring the final touch of luxury.</p>
         </div>
-    </main>
+      </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 mt-20">
-        <div class="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-5">
-            <!-- Logo & Social -->
-            <div class="md:col-span-2">
-                <a href="index.html" class="text-2xl font-bold">
-                    furnitex
-                </a>
-                <p class="mt-4 text-gray-400">
-                    The all-in-one platform for your furniture needs.
-                </p>
-                <div class="mt-6 flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="h-5 w-5"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                </div>
-            </div>
+      <h2>2. Details & Engineering</h2>
+      <p>A beautiful wardrobe must glide effortlessly. Every edge is sealed with <strong>2mm PVC edge banding</strong> to prevent peeling and ensure smooth edges. The hardware is equally uncompromising: we use soft-close hinges and full-extension drawer runners sourced exclusively from industry benchmarks like <strong>Hettich, Hafele, and Ebco</strong>.</p>
 
-            <!-- Footer Links -->
-            <div>
-                <h5 class="font-semibold">Products</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Modular Kitchen</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Wardrobes</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">Dining Tables</a></li>
-                    <li><a href="products.html" class="text-gray-400 hover:text-white">TV Units</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-semibold">Community</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Experts</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Events</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-semibold">Company</h5>
-                <ul class="mt-4 space-y-3">
-                    <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
-                    <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="border-t border-gray-800">
-            <div class="container mx-auto flex flex-col items-center justify-between px-6 py-8 text-center text-sm text-gray-500 md:flex-row">
-                <p>&copy; 2025 furnitex, Inc. All rights reserved.</p>
-                <div class="mt-4 flex space-x-6 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+      <blockquote>
+        <strong>💡 Design Tip</strong>
+        Conceal LED strip lights with motion sensors behind the shutters. That gentle evening glow instantly elevates the room's atmosphere.
+      </blockquote>
 
-    <!-- JavaScript for icons and mobile menu -->
-    <script>
-        // Render all Lucide icons
-        lucide.createIcons();
+      <p>From the first precision-cut panel to the final hand-polished handle, every detail is measured, aligned, and crafted to reward daily attention.</p>
+    </div>
+  </div>
+</section>
 
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="container foot-grid">
+    <div>
+      <h4>Subscribe to our newsletter</h4>
+      <form class="subscribe" onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('input').placeholder='Thank you ·'">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit" data-grow>→</button>
+      </form>
+      <p class="foot-address">
+        Head atelier · 6/A/108 Mukundapur<br/>
+        Kolkata - 700099 · India<br/>
+        info.furnitex@gmail.com · +91 62905 91422
+      </p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="catalog.html#wardrobe">Wardrobe</a></li>
+        <li><a href="catalog.html#kitchen">Kitchen</a></li>
+        <li><a href="catalog.html#sofa">Sofa</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="information.html">Atelier</a></li>
+        <li><a href="contact.html">Trade Program</a></li>
+        <li><a href="contact.html">Press</a></li>
+        <li><a href="contact.html">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/frunitex?igsh=ZXl6ZGQ5OHdva2Fq" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+  <div class="foot-mega">furnit<em>e</em>x</div>
 
+  <div class="container">
+    <div class="foot-bottom">
+      <span>© 2026 Furnitex Atelier Pvt. Ltd.</span>
+      <span>Crafted in Calcutta · Lived in everywhere</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const dot=document.querySelector('.cur-dot'), ring=document.querySelector('.cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`});
+(function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop)})();
+document.querySelectorAll('a, button, [data-grow], .detail-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cur-grow'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cur-grow'));
+});
+
+const lenis = new Lenis({duration:1.25, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+
+ScrollTrigger.create({start:60,end:99999,toggleClass:{targets:'#nav',className:'scrolled'}});
+
+gsap.from('.head-section h1',{y:60,opacity:0,duration:1.2,ease:'power4.out'});
+gsap.from('.article-body > *',{y:30,opacity:0,duration:.9,stagger:.08,ease:'power3.out'});
+gsap.from('.foot-mega',{y:120,opacity:0,duration:1.4,ease:'power4.out',scrollTrigger:{trigger:'.foot-mega',start:'top 90%'}});
+gsap.from('.foot-grid > div',{y:40,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.foot-grid',start:'top 85%'}});
+</script>
 </body>
 </html>
